@@ -131,3 +131,142 @@ button:hover, .btn:hover { background: var(--azul); }
   color: #777;
   font-size: 0.85rem;
 }
+
+
+
+/* ---- Libros: encabezado y buscador ---- */
+.libros-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.libros-contador {
+  color: #666;
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+}
+
+.libros-buscador {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+  align-items: center;
+}
+
+.libros-buscador input {
+  flex: 1;
+  margin-top: 0;
+}
+
+.libros-limpiar {
+  color: var(--rojo);
+  text-decoration: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* ---- Grid de tarjetas de libros ---- */
+.libros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.libro-card {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.libro-card:hover {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.libro-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.libro-titulo {
+  margin: 0 0 6px;
+  color: var(--azul);
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.libro-autor {
+  margin: 0 0 12px;
+  color: #444;
+  font-size: 0.92rem;
+}
+
+.libro-detalles {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.libro-isbn {
+  font-size: 0.78rem;
+  color: #999;
+  margin: 0 0 14px;
+}
+
+.libro-acciones {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+}
+
+/* ---- Badges (etiquetas de color) ---- */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-categoria {
+  background: #e8eefc;
+  color: var(--azul-claro);
+}
+
+.stock-disponible {
+  background: #e3f6e8;
+  color: var(--verde);
+}
+
+.stock-bajo {
+  background: #fff4dd;
+  color: #a8710a;
+}
+
+.stock-agotado {
+  background: #fdecea;
+  color: var(--rojo);
+}
+
+/* ---- Botones pequeños dentro de las tarjetas ---- */
+.btn-pequeno {
+  margin-top: 0;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}

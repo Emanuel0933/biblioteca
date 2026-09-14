@@ -22,46 +22,32 @@ if ($busqueda !== '') {
 
 $libros = $stmt->fetchAll();
 
+function claseStock(int $stock): string
+{
+    if ($stock <= 0) return 'stock-agotado';
+    if ($stock <= 3) return 'stock-bajo';
+    return 'stock-disponible';
+}
+
 $titulo = 'Libros';
 require __DIR__ . '/../includes/header.php';
 ?>
 <div class="tarjeta">
-    <h1>Libros</h1>
-
-    <form method="get" action="libros.php" style="display:flex; gap:8px; align-items:flex-end;">
-        <div style="flex:1;">
-            <label for="q">Buscar por título o autor</label>
-            <input type="text" id="q" name="q" value="<?= htmlspecialchars($busqueda) ?>">
+    <div class="libros-encabezado">
+        <div>
+            <h1>📚 Catálogo de libros</h1>
+            <p class="libros-contador"><?= count($libros) ?> libro<?= count($libros) === 1 ? '' : 's' ?> encontrado<?= count($libros) === 1 ? '' : 's' ?></p>
         </div>
-        <button type="submit">Buscar</button>
-    </form>
+        <a class="btn" href="libro_form.php">+ Nuevo libro</a>
+    </div>
 
-    <p style="margin-top:16px;"><a class="btn" href="libro_form.php">+ Nuevo libro</a></p>
-
-    <table>
-        <tr>
-            <th>Título</th><th>Autor</th><th>Categoría</th><th>Editorial</th>
-            <th>Año</th><th>ISBN</th><th>Stock</th><th>Acciones</th>
-        </tr>
-        <?php foreach ($libros as $l): ?>
-        <tr>
-            <td><?= htmlspecialchars($l['titulo']) ?></td>
-            <td><?= htmlspecialchars($l['autor']) ?></td>
-            <td><?= htmlspecialchars($l['categoria']) ?></td>
-            <td><?= htmlspecialchars($l['editorial']) ?></td>
-            <td><?= (int)$l['anio_publicacion'] ?></td>
-            <td><?= htmlspecialchars($l['isbn']) ?></td>
-            <td><?= (int)$l['stock'] ?></td>
-            <td class="acciones">
-                <a href="libro_form.php?id=<?= $l['id'] ?>">Editar</a>
-                <a href="libro_eliminar.php?id=<?= $l['id'] ?>"
-                   onclick="return confirm('¿Eliminar este libro?');">Eliminar</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-        <?php if (!$libros): ?>
-        <tr><td colspan="8">No se encontraron libros.</td></tr>
+    <form method="get" action="libros.php" class="libros-buscador">
+        <input type="text" name="q" placeholder="Buscar por título o autor..." value="<?= htmlspecialchars($busqueda) ?>">
+        <button type="submit">🔍 Buscar</button>
+        <?php if ($busqueda !== ''): ?>
+            <a href="libros.php" class="libros-limpiar">Limpiar</a>
         <?php endif; ?>
-    </table>
+    </form>
 </div>
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+
+<?php
