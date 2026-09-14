@@ -29,6 +29,12 @@ function claseStock(int $stock): string
     return 'stock-disponible';
 }
 
+// Asigna un color de "pasta" consistente según la categoría del libro
+function colorPortada(string $categoria): int
+{
+    return crc32($categoria) % 6;
+}
+
 $titulo = 'Libros';
 require __DIR__ . '/../includes/header.php';
 ?>
@@ -50,4 +56,41 @@ require __DIR__ . '/../includes/header.php';
     </form>
 </div>
 
-<?php
+<?php if ($libros): ?>
+<div class="libros-grid">
+    <?php foreach ($libros as $l): ?>
+    <div class="libro-card">
+        <div class="libro-portada portada-<?= colorPortada($l['categoria']) ?>">
+            <span class="libro-portada-icono">📖</span>
+            <span class="badge badge-categoria-sobre-portada"><?= htmlspecialchars($l['categoria']) ?></span>
+        </div>
+
+        <div class="libro-card-body">
+            <h3 class="libro-titulo"><?= htmlspecialchars($l['titulo']) ?></h3>
+            <p class="libro-autor">✍️ <?= htmlspecialchars($l['autor']) ?></p>
+
+            <div class="libro-detalles">
+                <span>🏢 <?= htmlspecialchars($l['editorial']) ?></span>
+                <span>📅 <?= (int)$l['anio_publicacion'] ?></span>
+            </div>
+            <p class="libro-isbn">ISBN: <?= htmlspecialchars($l['isbn']) ?></p>
+
+            <span class="badge <?= claseStock((int)$l['stock']) ?>">
+                <?= (int)$l['stock'] > 0 ? (int)$l['stock'] . ' en stock' : 'Agotado' ?>
+            </span>
+
+            <div class="libro-acciones">
+                <a href="libro_form.php?id=<?= $l['id'] ?>" class="btn btn-pequeno">Editar</a>
+                <a href="libro_eliminar.php?id=<?= $l['id'] ?>" class="btn btn-pequeno btn-eliminar"
+                   onclick="return confirm('¿Eliminar este libro?');">Eliminar</a>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+<?php else: ?>
+<div class="tarjeta">
+    <p>No se encontraron libros<?= $busqueda !== '' ? ' para "' . htmlspecialchars($busqueda) . '"' : '' ?>.</p>
+</div>
+<?php endif; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>
