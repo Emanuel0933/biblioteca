@@ -312,3 +312,89 @@ button:hover, .btn:hover { background: var(--azul); }
   padding: 7px 14px;
   font-size: 0.85rem;
 }
+
+
+/* ---- Página de inicio ---- */
+.hero {
+  background: linear-gradient(135deg, var(--azul), var(--azul-claro));
+  color: #fff;
+  border-radius: 12px;
+  padding: 48px 32px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  color: #fff;
+  margin: 0 0 14px;
+  font-size: 1.8rem;
+}
+
+.hero-texto {
+  max-width: 560px;
+  margin: 0 auto 24px;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+.btn-grande {
+  padding: 14px 28px;
+  font-size: 1rem;
+  background: #fff;
+  color: var(--azul);
+  font-weight: 700;
+}
+
+.btn-grande:hover {
+  background: #eef2f8;
+}
+
+.inicio-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-numero {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--azul);
+}
+
+.stat-etiqueta {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.chip {
+  background: #e8eefc;
+  color: var(--azul-claro);
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.chip:hover {
+  background: var(--azul-claro);
+  color: #fff;
+}
