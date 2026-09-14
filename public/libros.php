@@ -29,7 +29,6 @@ function claseStock(int $stock): string
     return 'stock-disponible';
 }
 
-// Asigna un color de "pasta" consistente según la categoría del libro
 function colorPortada(string $categoria): int
 {
     return crc32($categoria) % 6;
@@ -44,7 +43,9 @@ require __DIR__ . '/../includes/header.php';
             <h1>📚 Catálogo de libros</h1>
             <p class="libros-contador"><?= count($libros) ?> libro<?= count($libros) === 1 ? '' : 's' ?> encontrado<?= count($libros) === 1 ? '' : 's' ?></p>
         </div>
-        <a class="btn" href="libro_form.php">+ Nuevo libro</a>
+        <?php if (esAdmin()): ?>
+            <a class="btn" href="libro_form.php">+ Nuevo libro</a>
+        <?php endif; ?>
     </div>
 
     <form method="get" action="libros.php" class="libros-buscador">
@@ -79,11 +80,13 @@ require __DIR__ . '/../includes/header.php';
                 <?= (int)$l['stock'] > 0 ? (int)$l['stock'] . ' en stock' : 'Agotado' ?>
             </span>
 
+            <?php if (esAdmin()): ?>
             <div class="libro-acciones">
                 <a href="libro_form.php?id=<?= $l['id'] ?>" class="btn btn-pequeno">Editar</a>
                 <a href="libro_eliminar.php?id=<?= $l['id'] ?>" class="btn btn-pequeno btn-eliminar"
                    onclick="return confirm('¿Eliminar este libro?');">Eliminar</a>
             </div>
+            <?php endif; ?>
         </div>
     </div>
     <?php endforeach; ?>
