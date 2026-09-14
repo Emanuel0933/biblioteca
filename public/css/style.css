@@ -163,10 +163,23 @@ button:hover, .btn:hover { background: var(--azul); }
 }
 
 .libros-limpiar {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 16px;
+  border: 1px solid var(--rojo);
+  border-radius: 4px;
   color: var(--rojo);
   text-decoration: none;
   font-size: 0.9rem;
+  font-weight: 600;
   white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.libros-limpiar:hover {
+  background: var(--rojo);
+  color: #fff;
 }
 
 /* ---- Grid de tarjetas de libros (m\u00e1s grandes, estilo portada) ---- */
