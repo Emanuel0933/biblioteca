@@ -13,9 +13,9 @@ $sql = 'SELECT l.*, a.nombre AS autor, c.nombre AS categoria, e.nombre AS editor
         JOIN editoriales e ON e.id = l.editorial_id';
 
 if ($busqueda !== '') {
-    $sql .= ' WHERE l.titulo LIKE :q OR a.nombre LIKE :q';
+    $sql .= ' WHERE l.titulo LIKE :q1 OR a.nombre LIKE :q2';
     $stmt = $pdo->prepare($sql . ' ORDER BY l.titulo');
-    $stmt->execute(['q' => "%$busqueda%"]);
+    $stmt->execute(['q1' => "%$busqueda%", 'q2' => "%$busqueda%"]);
 } else {
     $stmt = $pdo->query($sql . ' ORDER BY l.titulo');
 }
