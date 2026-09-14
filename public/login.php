@@ -4,7 +4,7 @@ require __DIR__ . '/../includes/auth.php';
 require __DIR__ . '/../config/db.php';
 
 if (estaAutenticado()) {
-    header('Location: dashboard.php');
+    header('Location: libros.php');
     exit;
 }
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_id'] = $usuario['id'];
             $_SESSION['nombre']     = $usuario['nombre'];
             $_SESSION['rol']        = $usuario['rol'];
-            header('Location: dashboard.php');
+            header('Location: libros.php');
             exit;
         }
         $error = 'Correo o contraseña incorrectos.';
