@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_id'] = $usuario['id'];
             $_SESSION['nombre']     = $usuario['nombre'];
             $_SESSION['rol']        = $usuario['rol'];
-            header('Location: libros.php');
+            header('Location: inicio.php');
             exit;
         }
         $error = 'Correo o contraseña incorrectos.';
