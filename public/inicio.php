@@ -9,7 +9,7 @@ $totalCategorias  = (int) $pdo->query('SELECT COUNT(*) c FROM categorias')->fetc
 $totalAutores     = (int) $pdo->query('SELECT COUNT(*) c FROM autores')->fetch()['c'];
 $totalDisponibles = (int) $pdo->query('SELECT COALESCE(SUM(stock),0) c FROM libros')->fetch()['c'];
 
-$categorias = $pdo->query('SELECT nombre FROM categorias ORDER BY nombre')->fetchAll();
+$categorias = $pdo->query('SELECT nombre, descripcion FROM categorias ORDER BY nombre')->fetchAll();
 
 $titulo = 'Inicio';
 require __DIR__ . '/../includes/header.php';
@@ -44,9 +44,15 @@ require __DIR__ . '/../includes/header.php';
 
 <div class="tarjeta">
     <h2>Explora por categoría</h2>
-    <div class="chips">
+    <p class="categorias-subtitulo">Conoce los géneros disponibles y encuentra el que más te interese.</p>
+
+    <div class="categorias-grid">
         <?php foreach ($categorias as $c): ?>
-            <a class="chip" href="libros.php?categoria=<?= urlencode($c['nombre']) ?>"><?= htmlspecialchars($c['nombre']) ?></a>        <?php endforeach; ?>
+        <a class="categoria-card" href="libros.php?categoria=<?= urlencode($c['nombre']) ?>">
+            <h3><?= htmlspecialchars($c['nombre']) ?></h3>
+            <p><?= htmlspecialchars($c['descripcion'] ?? 'Sin descripción disponible.') ?></p>
+        </a>
+        <?php endforeach; ?>
     </div>
 </div>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

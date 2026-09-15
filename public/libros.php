@@ -81,7 +81,7 @@ require __DIR__ . '/../includes/header.php';
 
         <div class="libro-card-body">
             <h3 class="libro-titulo"><?= htmlspecialchars($l['titulo']) ?></h3>
-            <p class="libro-autor">✍️ <?= htmlspecialchars($l['autor']) ?></p>
+            <p class="libro-descripcion"><?= htmlspecialchars($l['descripcion'] ?? 'Sin descripción disponible.') ?></p>
 
             <div class="libro-detalles">
                 <span>🏢 <?= htmlspecialchars($l['editorial']) ?></span>

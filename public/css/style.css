@@ -496,3 +496,46 @@ button:hover, .btn:hover { background: var(--azul); }
 .btn-cancelar:hover {
   background: #666;
 }
+
+/* ---- Tarjetas de categoría (con descripción) en Inicio ---- */
+.categorias-subtitulo {
+  color: #666;
+  margin: -4px 0 4px;
+  font-size: 0.9rem;
+}
+
+.categorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.categoria-card {
+  display: block;
+  background: #fafbfd;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 16px;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.categoria-card:hover {
+  border-color: var(--azul-claro);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.categoria-card h3 {
+  margin: 0 0 6px;
+  color: var(--azul);
+  font-size: 1rem;
+}
+
+.categoria-card p {
+  margin: 0;
+  color: #666;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
