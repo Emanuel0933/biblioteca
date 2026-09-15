@@ -83,7 +83,7 @@ $titulo = $id ? 'Editar libro' : 'Nuevo libro';
 require __DIR__ . '/../includes/header.php';
 ?>
 <div class="form-libro-header">
-    <h1><?= $id ? '✏️ Editar libro' : '➕ Agregar nuevo libro' ?></h1>
+    <h1><?= $id ? ' Editar libro' : ' Agregar nuevo libro' ?></h1>
     <p>Completa los datos del libro para <?= $id ? 'actualizarlo en' : 'agregarlo a' ?> el catálogo.</p>
 </div>
 
@@ -152,7 +152,7 @@ require __DIR__ . '/../includes/header.php';
         </div>
 
         <div class="form-libro-acciones">
-            <button type="submit"><?= $id ? '💾 Guardar cambios' : '✅ Crear libro' ?></button>
+            <button type="submit"><?= $id ? '💾 Guardar cambios' : ' Crear libro' ?></button>
             <a class="btn btn-cancelar" href="libros.php">Cancelar</a>
         </div>
     </form>

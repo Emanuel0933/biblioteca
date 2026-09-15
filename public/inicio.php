@@ -15,12 +15,12 @@ $titulo = 'Inicio';
 require __DIR__ . '/../includes/header.php';
 ?>
 <div class="hero">
-    <h1>📚 Bienvenido(a) a la Biblioteca, <?= htmlspecialchars($_SESSION['nombre']) ?></h1>
+    <h1> Bienvenido(a) a la Biblioteca, <?= htmlspecialchars($_SESSION['nombre']) ?></h1>
     <p class="hero-texto">
         Un espacio para descubrir, tomar prestado y disfrutar de nuestra colección de libros.
         Explora el catálogo, revisa la disponibilidad y encuentra tu próxima lectura.
     </p>
-    <a href="libros.php" class="btn btn-grande">📖 Ver catálogo de libros</a>
+    <a href="libros.php" class="btn btn-grande"> Ver catálogo de libros</a>
 </div>
 
 <div class="inicio-stats">

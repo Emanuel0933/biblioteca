@@ -539,3 +539,176 @@ button:hover, .btn:hover { background: var(--azul); }
   font-size: 0.85rem;
   line-height: 1.4;
 }
+
+
+/* ---- Encabezados de secciones de administración (tema morado) ---- */
+.admin-header {
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.admin-header h1 {
+  color: #fff;
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+}
+
+.admin-header p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 0.92rem;
+}
+
+.tema-morado {
+  background: linear-gradient(135deg, #6a3fae, #45276e);
+}
+
+.form-admin.borde-morado {
+  border-top: 4px solid #6a3fae;
+}
+
+.btn-morado {
+  background: #6a3fae;
+}
+.btn-morado:hover {
+  background: #532b8c;
+}
+
+.btn-morado-solido {
+  background: #6a3fae;
+  margin-top: 0;
+  padding: 11px 24px;
+}
+.btn-morado-solido:hover {
+  background: #532b8c;
+}
+
+/* ---- Préstamos: tarjetas ---- */
+.prestamos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.prestamo-card {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.prestamo-card-top { margin-bottom: 10px; }
+
+.prestamo-libro {
+  margin: 0 0 4px;
+  color: var(--azul);
+  font-size: 1.05rem;
+}
+
+.prestamo-usuario {
+  margin: 0 0 14px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.prestamo-fechas {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+}
+
+.prestamo-fechas span {
+  color: #888;
+  display: block;
+  font-size: 0.75rem;
+}
+
+.estado-prestado { background: #e8eefc; color: var(--azul-claro); }
+.estado-devuelto { background: #e3f6e8; color: var(--verde); }
+.estado-atrasado { background: #fdecea; color: var(--rojo); }
+
+/* ---- Categorías: tarjetas de administración ---- */
+.categorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.categoria-card-admin {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.categoria-card-admin h3 {
+  margin: 0 0 6px;
+  color: #6a3fae;
+  font-size: 1rem;
+}
+
+.categoria-card-admin p {
+  margin: 0 0 14px;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* ---- Usuarios: tarjetas ---- */
+.usuarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.usuario-card {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.usuario-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #6a3fae;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.usuario-info h3 {
+  margin: 0 0 4px;
+  color: var(--azul);
+  font-size: 1rem;
+}
+
+.usuario-info p {
+  margin: 0 0 8px;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.usuario-fecha {
+  margin-top: 8px !important;
+  color: #999 !important;
+  font-size: 0.75rem !important;
+}
+
+.badge-admin { background: #fdecea; color: var(--rojo); }
+.badge-usuario { background: #e8eefc; color: var(--azul-claro); }

@@ -73,7 +73,7 @@ require __DIR__ . '/../includes/header.php';
     <?php foreach ($libros as $l): ?>
     <div class="libro-card">
         <div class="libro-portada portada-<?= colorPortada($l['categoria']) ?>">
-            <span class="libro-portada-icono">📖</span>
+            <span class="libro-portada-icono"></span>
             <a class="badge badge-categoria-sobre-portada" href="libros.php?categoria=<?= urlencode($l['categoria']) ?>">
                 <?= htmlspecialchars($l['categoria']) ?>
             </a>
@@ -84,8 +84,8 @@ require __DIR__ . '/../includes/header.php';
             <p class="libro-descripcion"><?= htmlspecialchars($l['descripcion'] ?? 'Sin descripción disponible.') ?></p>
 
             <div class="libro-detalles">
-                <span>🏢 <?= htmlspecialchars($l['editorial']) ?></span>
-                <span>📅 <?= (int)$l['anio_publicacion'] ?></span>
+                <span> <?= htmlspecialchars($l['editorial']) ?></span>
+                <span> <?= (int)$l['anio_publicacion'] ?></span>
             </div>
             <p class="libro-isbn">ISBN: <?= htmlspecialchars($l['isbn']) ?></p>
 

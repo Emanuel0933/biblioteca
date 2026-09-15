@@ -12,36 +12,53 @@ $prestamos = $pdo->query(
      ORDER BY p.fecha_prestamo DESC'
 )->fetchAll();
 
+function claseEstado(string $estado): string
+{
+    return match ($estado) {
+        'devuelto' => 'estado-devuelto',
+        'atrasado' => 'estado-atrasado',
+        default    => 'estado-prestado',
+    };
+}
+
 $titulo = 'Préstamos';
 require __DIR__ . '/../includes/header.php';
 ?>
-<div class="tarjeta">
-    <h1>Préstamos</h1>
-    <p><a class="btn" href="prestamo_form.php">+ Nuevo préstamo</a></p>
-
-    <table>
-        <tr>
-            <th>Libro</th><th>Usuario</th><th>Fecha préstamo</th>
-            <th>Devolución esperada</th><th>Devolución real</th><th>Estado</th><th>Acciones</th>
-        </tr>
-        <?php foreach ($prestamos as $p): ?>
-        <tr>
-            <td><?= htmlspecialchars($p['libro']) ?></td>
-            <td><?= htmlspecialchars($p['usuario']) ?></td>
-            <td><?= htmlspecialchars($p['fecha_prestamo']) ?></td>
-            <td><?= htmlspecialchars($p['fecha_devolucion_esperada']) ?></td>
-            <td><?= htmlspecialchars($p['fecha_devolucion_real'] ?? '—') ?></td>
-            <td><?= htmlspecialchars(ucfirst($p['estado'])) ?></td>
-            <td class="acciones">
-                <a href="prestamo_form.php?id=<?= $p['id'] ?>">Editar</a>
-                <a href="prestamo_eliminar.php?id=<?= $p['id'] ?>"
-                   onclick="return confirm('¿Eliminar este préstamo?');">Eliminar</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-        <?php if (!$prestamos): ?>
-        <tr><td colspan="7">No hay préstamos registrados.</td></tr>
-        <?php endif; ?>
-    </table>
+<div class="admin-header tema-morado">
+    <h1> Préstamos</h1>
+    <p>Consulta y administra los préstamos de libros a los usuarios.</p>
 </div>
+
+<div class="tarjeta">
+    <div class="libros-encabezado">
+        <p class="libros-contador"><?= count($prestamos) ?> préstamo<?= count($prestamos) === 1 ? '' : 's' ?> registrado<?= count($prestamos) === 1 ? '' : 's' ?></p>
+        <a class="btn btn-morado" href="prestamo_form.php">+ Nuevo préstamo</a>
+    </div>
+</div>
+
+<?php if ($prestamos): ?>
+<div class="prestamos-grid">
+    <?php foreach ($prestamos as $p): ?>
+    <div class="prestamo-card">
+        <div class="prestamo-card-top">
+            <span class="badge <?= claseEstado($p['estado']) ?>"><?= htmlspecialchars(ucfirst($p['estado'])) ?></span>
+        </div>
+        <h3 class="prestamo-libro"> <?= htmlspecialchars($p['libro']) ?></h3>
+        <p class="prestamo-usuario"> <?= htmlspecialchars($p['usuario']) ?></p>
+        <div class="prestamo-fechas">
+            <div><span>Prestado</span><strong><?= htmlspecialchars($p['fecha_prestamo']) ?></strong></div>
+            <div><span>Devolución esperada</span><strong><?= htmlspecialchars($p['fecha_devolucion_esperada']) ?></strong></div>
+            <div><span>Devolución real</span><strong><?= htmlspecialchars($p['fecha_devolucion_real'] ?? '—') ?></strong></div>
+        </div>
+        <div class="libro-acciones">
+            <a href="prestamo_form.php?id=<?= $p['id'] ?>" class="btn btn-pequeno btn-morado">Editar</a>
+            <a href="prestamo_eliminar.php?id=<?= $p['id'] ?>" class="btn btn-pequeno btn-eliminar"
+               onclick="return confirm('¿Eliminar este préstamo?');">Eliminar</a>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+<?php else: ?>
+<div class="tarjeta"><p>No hay préstamos registrados.</p></div>
+<?php endif; ?>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

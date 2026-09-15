@@ -15,9 +15,7 @@ if ($id) {
     $stmt = $pdo->prepare('SELECT * FROM prestamos WHERE id = ?');
     $stmt->execute([$id]);
     $encontrado = $stmt->fetch();
-    if ($encontrado) {
-        $prestamo = $encontrado;
-    }
+    if ($encontrado) $prestamo = $encontrado;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -56,53 +54,65 @@ $usuarios = $pdo->query('SELECT id, nombre FROM usuarios ORDER BY nombre')->fetc
 $titulo = $id ? 'Editar préstamo' : 'Nuevo préstamo';
 require __DIR__ . '/../includes/header.php';
 ?>
-<div class="tarjeta">
-    <h1><?= $id ? 'Editar préstamo' : 'Nuevo préstamo' ?></h1>
+<div class="admin-header tema-morado">
+    <h1><?= $id ? ' Editar préstamo' : ' Registrar nuevo préstamo' ?></h1>
+    <p>Indica el libro, el usuario y las fechas del préstamo.</p>
+</div>
 
+<div class="tarjeta form-admin borde-morado">
     <?php if ($error): ?><div class="alerta-error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
     <form method="post" action="prestamo_form.php<?= $id ? '?id=' . $id : '' ?>">
-        <label for="libro_id">Libro</label>
-        <select id="libro_id" name="libro_id" required>
-            <option value="">-- Selecciona --</option>
-            <?php foreach ($libros as $l): ?>
-                <option value="<?= $l['id'] ?>" <?= $l['id'] == $prestamo['libro_id'] ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($l['titulo']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <div class="form-grid">
+            <div class="campo campo-ancho">
+                <label for="libro_id">Libro</label>
+                <select id="libro_id" name="libro_id" required>
+                    <option value="">-- Selecciona --</option>
+                    <?php foreach ($libros as $l): ?>
+                        <option value="<?= $l['id'] ?>" <?= $l['id'] == $prestamo['libro_id'] ? 'selected' : '' ?>><?= htmlspecialchars($l['titulo']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="usuario_id">Usuario</label>
-        <select id="usuario_id" name="usuario_id" required>
-            <option value="">-- Selecciona --</option>
-            <?php foreach ($usuarios as $u): ?>
-                <option value="<?= $u['id'] ?>" <?= $u['id'] == $prestamo['usuario_id'] ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($u['nombre']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+            <div class="campo campo-ancho">
+                <label for="usuario_id">Usuario</label>
+                <select id="usuario_id" name="usuario_id" required>
+                    <option value="">-- Selecciona --</option>
+                    <?php foreach ($usuarios as $u): ?>
+                        <option value="<?= $u['id'] ?>" <?= $u['id'] == $prestamo['usuario_id'] ? 'selected' : '' ?>><?= htmlspecialchars($u['nombre']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="fecha_prestamo">Fecha de préstamo</label>
-        <input type="date" id="fecha_prestamo" name="fecha_prestamo" required
-               value="<?= htmlspecialchars($prestamo['fecha_prestamo']) ?>">
+            <div class="campo">
+                <label for="fecha_prestamo">Fecha de préstamo</label>
+                <input type="date" id="fecha_prestamo" name="fecha_prestamo" required value="<?= htmlspecialchars($prestamo['fecha_prestamo']) ?>">
+            </div>
 
-        <label for="fecha_devolucion_esperada">Fecha de devolución esperada</label>
-        <input type="date" id="fecha_devolucion_esperada" name="fecha_devolucion_esperada" required
-               value="<?= htmlspecialchars($prestamo['fecha_devolucion_esperada']) ?>">
+            <div class="campo">
+                <label for="fecha_devolucion_esperada">Devolución esperada</label>
+                <input type="date" id="fecha_devolucion_esperada" name="fecha_devolucion_esperada" required value="<?= htmlspecialchars($prestamo['fecha_devolucion_esperada']) ?>">
+            </div>
 
-        <label for="fecha_devolucion_real">Fecha de devolución real (opcional)</label>
-        <input type="date" id="fecha_devolucion_real" name="fecha_devolucion_real"
-               value="<?= htmlspecialchars($prestamo['fecha_devolucion_real'] ?? '') ?>">
+            <div class="campo">
+                <label for="fecha_devolucion_real">Devolución real (opcional)</label>
+                <input type="date" id="fecha_devolucion_real" name="fecha_devolucion_real" value="<?= htmlspecialchars($prestamo['fecha_devolucion_real'] ?? '') ?>">
+            </div>
 
-        <label for="estado">Estado</label>
-        <select id="estado" name="estado" required>
-            <?php foreach (['prestado', 'devuelto', 'atrasado'] as $op): ?>
-                <option value="<?= $op ?>" <?= $op === $prestamo['estado'] ? 'selected' : '' ?>><?= ucfirst($op) ?></option>
-            <?php endforeach; ?>
-        </select>
+            <div class="campo">
+                <label for="estado">Estado</label>
+                <select id="estado" name="estado" required>
+                    <?php foreach (['prestado', 'devuelto', 'atrasado'] as $op): ?>
+                        <option value="<?= $op ?>" <?= $op === $prestamo['estado'] ? 'selected' : '' ?>><?= ucfirst($op) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
 
-        <button type="submit"><?= $id ? 'Guardar cambios' : 'Registrar préstamo' ?></button>
-        <a class="btn" href="prestamos.php" style="background:#888;">Cancelar</a>
+        <div class="form-libro-acciones">
+            <button type="submit" class="btn-morado-solido"><?= $id ? ' Guardar cambios' : '✅ Registrar préstamo' ?></button>
+            <a class="btn btn-cancelar" href="prestamos.php">Cancelar</a>
+        </div>
     </form>
 </div>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
