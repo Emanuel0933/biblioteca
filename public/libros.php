@@ -4,7 +4,8 @@ require __DIR__ . '/../includes/auth.php';
 requerirLogin();
 require __DIR__ . '/../config/db.php';
 
-$busqueda = trim($_GET['q'] ?? '');
+$busqueda  = trim($_GET['q'] ?? '');
+$categoria = trim($_GET['categoria'] ?? '');
 
 $sql = 'SELECT l.*, a.nombre AS autor, c.nombre AS categoria, e.nombre AS editorial
         FROM libros l
@@ -12,14 +13,24 @@ $sql = 'SELECT l.*, a.nombre AS autor, c.nombre AS categoria, e.nombre AS editor
         JOIN categorias c ON c.id = l.categoria_id
         JOIN editoriales e ON e.id = l.editorial_id';
 
-if ($busqueda !== '') {
-    $sql .= ' WHERE l.titulo LIKE :q1 OR a.nombre LIKE :q2';
-    $stmt = $pdo->prepare($sql . ' ORDER BY l.titulo');
-    $stmt->execute(['q1' => "%$busqueda%", 'q2' => "%$busqueda%"]);
-} else {
-    $stmt = $pdo->query($sql . ' ORDER BY l.titulo');
+$condiciones = [];
+$parametros  = [];
+
+if ($categoria !== '') {
+    $condiciones[] = 'c.nombre = :categoria';
+    $parametros['categoria'] = $categoria;
+} elseif ($busqueda !== '') {
+    $condiciones[] = '(l.titulo LIKE :q1 OR a.nombre LIKE :q2)';
+    $parametros['q1'] = "%$busqueda%";
+    $parametros['q2'] = "%$busqueda%";
 }
 
+if ($condiciones) {
+    $sql .= ' WHERE ' . implode(' AND ', $condiciones);
+}
+
+$stmt = $pdo->prepare($sql . ' ORDER BY l.titulo');
+$stmt->execute($parametros);
 $libros = $stmt->fetchAll();
 
 function claseStock(int $stock): string
@@ -40,7 +51,7 @@ require __DIR__ . '/../includes/header.php';
 <div class="tarjeta">
     <div class="libros-encabezado">
         <div>
-            <h1>📚 Catálogo de libros</h1>
+            <h1>📚 Catálogo de libros<?= $categoria !== '' ? ' — ' . htmlspecialchars($categoria) : '' ?></h1>
             <p class="libros-contador"><?= count($libros) ?> libro<?= count($libros) === 1 ? '' : 's' ?> encontrado<?= count($libros) === 1 ? '' : 's' ?></p>
         </div>
         <?php if (esAdmin()): ?>
@@ -51,8 +62,8 @@ require __DIR__ . '/../includes/header.php';
     <form method="get" action="libros.php" class="libros-buscador">
         <input type="text" name="q" placeholder="Buscar por título o autor..." value="<?= htmlspecialchars($busqueda) ?>">
         <button type="submit">🔍 Buscar</button>
-        <?php if ($busqueda !== ''): ?>
-            <a href="libros.php" class="libros-limpiar">Limpiar</a>
+        <?php if ($busqueda !== '' || $categoria !== ''): ?>
+            <a href="libros.php" class="libros-limpiar">✕ Limpiar</a>
         <?php endif; ?>
     </form>
 </div>
@@ -63,7 +74,9 @@ require __DIR__ . '/../includes/header.php';
     <div class="libro-card">
         <div class="libro-portada portada-<?= colorPortada($l['categoria']) ?>">
             <span class="libro-portada-icono">📖</span>
-            <span class="badge badge-categoria-sobre-portada"><?= htmlspecialchars($l['categoria']) ?></span>
+            <a class="badge badge-categoria-sobre-portada" href="libros.php?categoria=<?= urlencode($l['categoria']) ?>">
+                <?= htmlspecialchars($l['categoria']) ?>
+            </a>
         </div>
 
         <div class="libro-card-body">
@@ -93,7 +106,9 @@ require __DIR__ . '/../includes/header.php';
 </div>
 <?php else: ?>
 <div class="tarjeta">
-    <p>No se encontraron libros<?= $busqueda !== '' ? ' para "' . htmlspecialchars($busqueda) . '"' : '' ?>.</p>
+    <p>
+        No se encontraron libros<?= $categoria !== '' ? ' en la categoría "' . htmlspecialchars($categoria) . '"' : ($busqueda !== '' ? ' para "' . htmlspecialchars($busqueda) . '"' : '') ?>.
+    </p>
 </div>
 <?php endif; ?>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

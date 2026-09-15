@@ -46,8 +46,7 @@ require __DIR__ . '/../includes/header.php';
     <h2>Explora por categoría</h2>
     <div class="chips">
         <?php foreach ($categorias as $c): ?>
-            <a class="chip" href="libros.php?q=<?= urlencode($c['nombre']) ?>"><?= htmlspecialchars($c['nombre']) ?></a>
-        <?php endforeach; ?>
+            <a class="chip" href="libros.php?categoria=<?= urlencode($c['nombre']) ?>"><?= htmlspecialchars($c['nombre']) ?></a>        <?php endforeach; ?>
     </div>
 </div>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
