@@ -17,15 +17,14 @@ body {
 }
 
 .topbar {
-  background: var(--azul);
+  background: linear-gradient(135deg, #6a3fae, #45276e);
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 24px;
   flex-wrap: wrap;
-}
-
+} 
 .brand { color: #fff; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
 
 .topbar nav a {
@@ -213,6 +212,8 @@ button:hover, .btn:hover { background: var(--azul); }
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: cover;
+  background-position: center;
 }
 
 .libro-portada-icono {
@@ -316,7 +317,7 @@ button:hover, .btn:hover { background: var(--azul); }
 
 /* ---- Página de inicio ---- */
 .hero {
-  background: linear-gradient(135deg, var(--azul), var(--azul-claro));
+  background: linear-gradient(135deg, #6a3fae, #45276e);
   color: #fff;
   border-radius: 12px;
   padding: 48px 32px;
@@ -341,7 +342,7 @@ button:hover, .btn:hover { background: var(--azul); }
   padding: 14px 28px;
   font-size: 1rem;
   background: #fff;
-  color: var(--azul);
+  color: #6a3fae;
   font-weight: 700;
 }
 

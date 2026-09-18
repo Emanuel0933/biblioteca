@@ -93,8 +93,10 @@ require __DIR__ . '/../includes/header.php';
     <form method="post" action="libro_form.php<?= $id ? '?id=' . $id : '' ?>">
         <div class="form-grid">
             <div class="campo campo-ancho">
-                <label for="titulo">Título</label>
-                <input type="text" id="titulo" name="titulo" required value="<?= htmlspecialchars($libro['titulo']) ?>">
+                <label for="imagen_url">URL de imagen de portada (opcional)</label>
+                <input type="text" id="imagen_url" name="imagen_url" placeholder="https://..."
+                    value="<?= htmlspecialchars($libro['imagen_url'] ?? '') ?>">
+                <small class="ayuda-campo">Si lo dejas vacío, se mostrará un ícono de color según la categoría.</small>
             </div>
 
             <div class="campo">

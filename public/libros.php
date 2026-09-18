@@ -72,8 +72,11 @@ require __DIR__ . '/../includes/header.php';
 <div class="libros-grid">
     <?php foreach ($libros as $l): ?>
     <div class="libro-card">
-        <div class="libro-portada portada-<?= colorPortada($l['categoria']) ?>">
-            <span class="libro-portada-icono"></span>
+        <div class="libro-portada <?= empty($l['imagen_url']) ? 'portada-' . colorPortada($l['categoria']) : '' ?>"
+            <?= !empty($l['imagen_url']) ? 'style="background-image:url(\'' . htmlspecialchars($l['imagen_url']) . '\')"' : '' ?>>
+            <?php if (empty($l['imagen_url'])): ?>
+                <span class="libro-portada-icono">📖</span>
+            <?php endif; ?>
             <a class="badge badge-categoria-sobre-portada" href="libros.php?categoria=<?= urlencode($l['categoria']) ?>">
                 <?= htmlspecialchars($l['categoria']) ?>
             </a>
