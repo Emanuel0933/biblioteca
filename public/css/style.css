@@ -993,10 +993,13 @@ input:focus, select:focus, textarea:focus {
   position: relative;
   z-index: 1;
   max-width: 380px;
+  text-align: center;
 }
 
 .auth-panel-contenido .logo-svg {
-  margin-bottom: 20px;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 24px;
 }
 
 .auth-panel-contenido h1 {
@@ -1015,9 +1018,10 @@ input:focus, select:focus, textarea:focus {
 .auth-lista {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 12px;
   font-size: 0.92rem;
   opacity: 0.95;
