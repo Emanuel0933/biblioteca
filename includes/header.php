@@ -42,6 +42,7 @@
                 <a href="usuarios.php">Usuarios</a>
             <?php endif; ?>
             <span class="usuario-actual">Hola, <?= htmlspecialchars($_SESSION['nombre'] ?? '') ?></span>
+            <span class="reloj" id="reloj"></span>
             <a href="logout.php" class="salir">Salir</a>
         </nav>
     <?php endif; ?>
